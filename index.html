@@ -83,7 +83,7 @@ function fetchJoke() {
             if (data.type === 'single') {
                 jokeElement.textContent = data.joke;
             } else {
-                jokeElement.textContent = ${data.setup} - ${data.delivery};
+                jokeElement.textContent = `${data.setup} - ${data.delivery}`;
             }
             
          
