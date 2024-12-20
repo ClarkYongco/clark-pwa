@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joke API App</title>
+   <style>
+body {
+  font-family: 'Arial', sans-serif;
+  background-image: url(https://yt3.googleusercontent.com/krx9BI9MmtO2IEShNGjwl4dsCIjmmLzWf1nnSJ5trwhcHjaDfJ0PStWqIEs2HNj6p69KiUPaQQ=s900-c-k-c0x00ffffff-no-rj);
+  background-repeat: no-repeat;
+  background-size:cover;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #0a0a0a;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#joke-container {
+  margin-bottom: 20px;
+}
+
+#joke {
+  font-size: 18px;
+  color: #555;
+  line-height: 1.6;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+   </style>
+    
+
+</head>
+<body>
+    <div class="container">
+        <h1>Joke of the Moment</h1>
+        <button id="get-joke" onclick="fetchJoke()">Get a Joke</button>
+        <p id="joke">Click the button to get a joke!</p>
+    </div>
+
+    <script>
+function fetchJoke() {
+    const jokeElement = document.getElementById('joke');
+    const button = document.getElementById('get-joke');
+    
+    button.textContent = 'Loading...';
+    
+    fetch('https://v2.jokeapi.dev/joke/Any?type=single')
+        .then(response => response.json())
+        .then(data => {
+          
+            if (data.type === 'single') {
+                jokeElement.textContent = data.joke;
+            } else {
+                jokeElement.textContent = ${data.setup} - ${data.delivery};
+            }
+            
+         
+            button.textContent = 'Get a Joke';
+        })
+        .catch(error => {
+            console.error('Error fetching joke:', error);
+            jokeElement.textContent = 'Sorry, there was an error fetching the joke.';
+            button.textContent = 'Try Again';
+        });
+}
+
+    </script>
+</body>
+</html>
